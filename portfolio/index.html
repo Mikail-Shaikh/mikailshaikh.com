@@ -39,7 +39,11 @@
                         if (name && url) {
                             const iframeWrapper = document.createElement('div');
                             iframeWrapper.className = 'iframe-wrapper';
-                            iframeWrapper.innerHTML = `<iframe src="${url.trim()}" title="${name.trim()}"></iframe>`;
+                            iframeWrapper.innerHTML = `
+                                <div class="iframe-box">
+                                    <a href="${url.trim()}" target="_blank" class="project-name">${name.trim()}</a>
+                                    <iframe src="${url.trim()}" title="${name.trim()}"></iframe>
+                                </div>`;
                             container.appendChild(iframeWrapper);
                         }
                     });
