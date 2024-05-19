@@ -27,38 +27,40 @@
         <p>&copy; 2024 Mikail Shaikh. All rights reserved.</p>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('websites.csv')
-                .then(response => response.text())
-                .then(data => {
-                    const rows = data.split('\n').slice(1);
-                    const container = document.getElementById('iframe-container');
-                    rows.forEach(row => {
-                        const [name, url] = row.split(',');
-                        if (name) {
-                            const iframeWrapper = document.createElement('div');
-                            iframeWrapper.className = 'iframe-wrapper';
-                            if (url.trim()) {
-                                iframeWrapper.innerHTML = `
-                                    <div class="iframe-box">
-                                        <a href="${url.trim()}" target="_blank" class="project-name">${name.trim()}</a>
-                                        <iframe src="${url.trim()}" title="${name.trim()}"></iframe>
-                                    </div>`;
-                            } else {
-                                iframeWrapper.innerHTML = `
-                                    <div class="iframe-box">
-                                        <span class="project-name">${name.trim()}</span>
-                                        <img src="coming-soon.png" alt="Coming Soon" class="coming-soon-image">
-                                    </div>`;
-                            }
-                            container.appendChild(iframeWrapper);
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('websites.csv')
+            .then(response => response.text())
+            .then(data => {
+                const rows = data.split('\n').slice(1);
+                const container = document.getElementById('iframe-container');
+                rows.forEach(row => {
+                    const [name, url] = row.split(',');
+                    if (name) {
+                        const iframeWrapper = document.createElement('div');
+                        iframeWrapper.className = 'iframe-wrapper';
+                        if (url.trim()) {
+                            iframeWrapper.innerHTML = `
+                                <div class="iframe-box">
+                                    <a href="${url.trim()}" target="_blank" class="project-name">${name.trim()}</a>
+                                    <iframe src="${url.trim()}" title="${name.trim()}"></iframe>
+                                </div>`;
+                        } else {
+                            // Display the project name from the CSV file
+                            iframeWrapper.innerHTML = `
+                                <div class="iframe-box">
+                                    <span class="project-name">${name.trim()}</span>
+                                    <img src="coming-soon.png" alt="Coming Soon" class="coming-soon-image">
+                                </div>`;
                         }
-                    });
-                })
-                .catch(error => console.error('Error loading CSV:', error));
-        });
-    </script>
+                        container.appendChild(iframeWrapper);
+                    }
+                });
+            })
+            .catch(error => console.error('Error loading CSV:', error));
+    });
+</script>
+
 
 </body>
 </html>
