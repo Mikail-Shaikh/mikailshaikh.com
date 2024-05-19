@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Manager Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Mikail Shaikh</h1>
+        <h2>Product Manager</h2>
+    </header>
+
+    <div class="container">
+        <div class="description">
+            <p>Hello! I'm Mikail Shaikh, a Product Manager with a passion for creating user-centric products. With extensive experience in managing cross-functional teams and delivering successful projects, I thrive on turning ideas into reality. Below are some of the websites I've had the pleasure of working on.</p>
+        </div>
+
+        <div class="iframe-container" id="iframe-container">
+            <!-- Iframes will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Mikail Shaikh. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('websites.csv')
+                .then(response => response.text())
+                .then(data => {
+                    const rows = data.split('\n').slice(1);
+                    const container = document.getElementById('iframe-container');
+                    rows.forEach(row => {
+                        const [name, url] = row.split(',');
+                        if (name && url) {
+                            const iframeWrapper = document.createElement('div');
+                            iframeWrapper.className = 'iframe-wrapper';
+                            iframeWrapper.innerHTML = `<iframe src="${url.trim()}" title="${name.trim()}"></iframe>`;
+                            container.appendChild(iframeWrapper);
+                        }
+                    });
+                })
+                .catch(error => console.error('Error loading CSV:', error));
+        });
+    </script>
+
+</body>
+</html>
